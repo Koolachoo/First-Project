@@ -45,6 +45,28 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+function searchTitle(title) {
+    $.ajax({
+  type:"GET",
+  url:"https://app.ticketmaster.com/discovery/v2/events.json?size=10&apikey=6sAAxZwe571GmYrIVOdWuurpbXAwRhWo&keyword=" + title,
+  async:true,
+  dataType: "json",
+  success: function(response) {
+              var artistInfo = response._embedded.events[0]
+              console.log(artistInfo);
+              var artistName = $("<h1>").text(artistInfo.name);
+              var tourDate = $("<h1>").text(artistInfo.dates)
+              $("#lyrics-div").empty();
+            $("#lyrics-div").append(artistName);
+            $("#lyrics-div").append(tourDate);
+           },
+  error: function(xhr, status, err) {
+              // This time, we do not end up here!
+           }
+});
+}
+
   function searchBandsInTown(artist) {
 
     // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
@@ -79,7 +101,7 @@
     var inputArtist = $("#search").val().trim();
 
     // Running the searchBandsInTown function(passing in the artist as an argument)
-    searchBandsInTown(inputArtist);
+    searchTitle(inputArtist);
   });
 </script>
 
