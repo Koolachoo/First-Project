@@ -50,7 +50,7 @@
   function searchTitle(title) {
     $.ajax({
       type: "GET",
-      url: "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=6sAAxZwe571GmYrIVOdWuurpbXAwRhWo&keyword=" + title,
+      url: "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=6sAAxZwe571GmYrIVOdWuurpbXAwRhWo&sort=date,asc&keyword=" + title,
       async: true,
       dataType: "json",
       success: function (response) {
@@ -61,11 +61,13 @@
         for (var i = 0; i < response._embedded.events.length; i++) {
           console.log(response._embedded.events[i]);
           var artistInfo = response._embedded.events[i];
-          var tourDate = $("<h3>").text(artistInfo._embedded.venues[0].city.name + ", " + artistInfo._embedded.venues[0].state.stateCode)
+          var tourDate = $("<h3>").text(new Date(artistInfo.dates.start.localDate).toDateString());
+          var tourLocation = $("<h3>").text(artistInfo._embedded.venues[0].city.name + ", " + artistInfo._embedded.venues[0].state.stateCode)
           var venue = $("<h3>").text(artistInfo._embedded.venues[0].name)
           var tickets = $("<a>").attr("href", artistInfo._embedded.venues[0].url).text("Get tickets here")
           //$("#lyrics-div").empty();
           $("#lyrics-div").append(tourDate);
+          $("#lyrics-div").append(tourLocation);
           $("#lyrics-div").append(venue);
           $("#lyrics-div").append(tickets);
         }
