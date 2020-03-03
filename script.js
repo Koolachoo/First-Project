@@ -1,13 +1,38 @@
-//var tourAPIURL = "https://cors-anywhere.herokuapp.comhttp://app.ticketmaster.com/discovery/v1/events.json?keyword="+artist+"&apikey=6sAAxZwe571GmYrIVOdWuurpbXAwRhWo&callback=myFunction"
-var trackSearch = "We Are the champions";
-var lyricAPIURL = "https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?apikey=e1dd04d17e3320932e5291630f125a22&q_track="+trackSearch;
-//var songAPIURL = "https://cors-anywhere.herokuapp.comhttp://api.musixmatch.com/ws/1.1/track.search?apikey=e1dd04d17e3320932e5291630f125a22&q_artist=justin bieber&page_size=3&page=1&s_track_rating=desc"
+function songSearch (searchQuery) {
+    var inputArtist = $("#search").val().trim();
 
-        $.ajax({
-            url: lyricAPIURL,
-            method: "GET"
-          }).then(function (response) {
-            var respJSON = JSON.stringify(response);
-            console.log(respJSON);
-          });
-  
+    var happiAPIURL = "https://api.happi.dev/v1/music?q="+searchQuery+"&limit=50&apikey=c41550a1ttwXwtqNQoHOr3UKRHrfNBHWOY8nhmBCvIK87y2cjbJ0m7CP&type="
+
+   $.ajax({
+    url: happiAPIURL,
+    method: "GET",
+}).then(function (response) {
+    console.log(response);
+    for (var i = (response.length - 1); i > 0; i--) {
+        var songBtn = $("<button>").data("artist", response.result[i].artist);
+        
+        var titleDiv = $("<div>").text(response.result[i].track);
+        var artistDiv = $("<div>").text(response.result[i].artist);
+        var albumCover = $("<img>").attr("src", response.result[i].cover).width(350).height(300);
+
+        $ (songBtn).append(titleDiv).append(artistDiv).append(albumCover);
+        $ ("#lyrics-div").append(songBtn);
+
+        $(songBtn).on("click", function(event) {
+            event.preventDefault();
+        
+            var inputSearch = $(this).data("artist");
+            $ ("#lyrics-div").empty();
+            
+    });
+
+};
+})}
+
+$("#submitBtn").on("click", function(event) {
+    event.preventDefault();
+
+    var inputSearch = $("#search").val().trim();
+    $ ("#lyrics-div").empty();
+    songSearch(inputSearch);
+  });
