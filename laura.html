@@ -3,40 +3,41 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+    integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
   <!--[if lte IE 8]>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
 <![endif]-->
-<!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
-<!--<![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+  <!--<![endif]-->
   <title>Lyrics and Tour Dates</title>
 </head>
 
 <body>
 
-    <form class="pure-form pure-form-stacked">
-        <fieldset>
-            <legend>Find the Lyrics and Tour Dates</legend>
-    
-            <div class="pure-g">
-    
-                <div class="pure-u-1 pure-u-md-1-8">
-                    <label for="lyrics">Title or Lyrics</label>
-                    <select id="lyrics" class="pure-input-1-2">
-                        <option id="title-search">Title</option>
-                        <option id="lyrics-search">Lyrics</option>
-                    </select>
-                </div>
-                <div class="pure-u-1 pure-u-md-1-5">
-                    <label for="search">Search</label>
-                    <input id="search" class="pure-u-23-24" type="text">
-                </div>
-               
-            </div>
-            <button type="submit" id="submitBtn" class="pure-button pure-button-primary">Submit</button>
-        </fieldset>
-    </form>
+  <form class="pure-form pure-form-stacked">
+    <fieldset>
+      <legend>Find the Lyrics and Tour Dates</legend>
+
+      <div class="pure-g">
+
+        <div class="pure-u-1 pure-u-md-1-8">
+          <label for="lyrics">Title or Lyrics</label>
+          <select id="lyrics" class="pure-input-1-2">
+            <option id="title-search">Title</option>
+            <option id="lyrics-search">Lyrics</option>
+          </select>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-5">
+          <label for="search">Search</label>
+          <input id="search" class="pure-u-23-24" type="text">
+        </div>
+
+      </div>
+      <button type="submit" id="submitBtn" class="pure-button pure-button-primary">Submit</button>
+    </fieldset>
+  </form>
 
   <!-- Artist Information -->
   <div id="lyrics-div"></div>
@@ -46,26 +47,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 
-function searchTitle(title) {
+  function searchTitle(title) {
     $.ajax({
-  type:"GET",
-  url:"https://app.ticketmaster.com/discovery/v2/events.json?size=10&apikey=6sAAxZwe571GmYrIVOdWuurpbXAwRhWo&keyword=" + title,
-  async:true,
-  dataType: "json",
-  success: function(response) {
-              var artistInfo = response._embedded.events[0]
-              console.log(artistInfo);
-              var artistName = $("<h1>").text(artistInfo.name);
-              var tourDate = $("<h1>").text(artistInfo.dates)
-              $("#lyrics-div").empty();
-            $("#lyrics-div").append(artistName);
-            $("#lyrics-div").append(tourDate);
-           },
-  error: function(xhr, status, err) {
-              // This time, we do not end up here!
-           }
-});
-}
+      type: "GET",
+      url: "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=6sAAxZwe571GmYrIVOdWuurpbXAwRhWo&keyword=" + title,
+      async: true,
+      dataType: "json",
+      success: function (response) {
+
+        var artistName = $("<h1>").text(response._embedded.events[0].name);
+        $("#lyrics-div").append(artistName);
+
+        for (var i = 0; i < response._embedded.events.length; i++) {
+          console.log(response._embedded.events[i]);
+          var artistInfo = response._embedded.events[i];
+          var tourDate = $("<h3>").text(artistInfo._embedded.venues[0].city.name + ", " + artistInfo._embedded.venues[0].state.stateCode)
+          var venue = $("<h3>").text(artistInfo._embedded.venues[0].name)
+          var tickets = $("<a>").attr("href", artistInfo._embedded.venues[0].url).text("Get tickets here")
+          //$("#lyrics-div").empty();
+          $("#lyrics-div").append(tourDate);
+          $("#lyrics-div").append(venue);
+          $("#lyrics-div").append(tickets);
+        }
+      },
+      error: function (xhr, status, err) {
+        // This time, we do not end up here!
+      }
+    });
+  }
 
   function searchBandsInTown(artist) {
 
@@ -74,7 +83,7 @@ function searchTitle(title) {
     $.ajax({
       url: queryURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
 
       // Printing the entire object to console
       console.log(response);
@@ -93,15 +102,10 @@ function searchTitle(title) {
     });
   }
 
-  // Event handler for user clicking the select-artist button
-  $("#submitBtn").on("click", function(event) {
-    // Preventing the button from trying to submit the form
+  $("#submitBtn").on("click", function (event) {
     event.preventDefault();
-    // Storing the artist name
-    var inputArtist = $("#search").val().trim();
-
-    // Running the searchBandsInTown function(passing in the artist as an argument)
-    searchTitle(inputArtist);
+    var inputSong = $("#search").val().trim();
+    searchTitle(inputSong);
   });
 </script>
 
