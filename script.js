@@ -13,9 +13,7 @@ function songSearch(searchQuery) {
                 console.log(response);
 
                 if (response._embedded){
-                var artistName = $("<h1>").text(response._embedded.events[0].name);
-                // $("#lyrics-div").append($("<div>").append(artistName).addClass("box artistBox"));
-                $(".modal-card-body").append($("<div>").append(artistName).addClass("box artistBox"));
+                    $ (".modal-card-head").text(response._embedded.events[0].name);
            
 
                 for (var i = 0; i < response._embedded.events.length; i++) {
@@ -26,7 +24,7 @@ function songSearch(searchQuery) {
                     var tickets = $("<a>").attr("href", artistInfo._embedded.venues[0].url).text("Get tickets here")
                     var artistImage = $("<img>").attr("src", artistInfo.images[0].url);
                     //$("#lyrics-div").empty();
-                    $(".modal-card-body").append($("<div>").append(artistImage, tourDate, tourLocation, venue, tickets).addClass("box column is-one-quarter is-flex-desktop-only is-flex-mobile artistBox"));
+                    $(".modal-card-body").append($("<div>").append(artistImage, tourDate, tourLocation, venue, tickets).addClass("box column is-half is-flex-desktop-only is-flex-mobile artistBox"));
                 }     
             }
            
@@ -50,12 +48,12 @@ function songSearch(searchQuery) {
         for (var i = (response.length - 1); i > 0; i--) {
             var songBtn = $("<button>").data("artist", response.result[i].artist);
 
-            var titleDiv = $("<p>").text(response.result[i].track);
-            var artistDiv = $("<p>").text(response.result[i].artist);
+            var titleDiv = $("<p>").text(response.result[i].track).addClass("btnText");
+            var artistDiv = $("<p>").text(response.result[i].artist).addClass("btnText");
             var albumCover = $("<img>").attr("src", response.result[i].cover).addClass("albumImg");
 
             $(songBtn).append(titleDiv).append(artistDiv).append(albumCover);
-            $(songBtn).addClass("box column is-one-quarter songButtn is-flex-desktop-only is-flex-mobile");
+            $(songBtn).addClass("box column is-3 songButtn");
 
             $("#lyrics-div").append(songBtn);
 
