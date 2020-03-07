@@ -9,3 +9,19 @@
     <h1>Hello Justin!</h1>
 </body>
 </html>
+
+
+for (var i = 0; i < response._embedded.events.length; i++) {
+    var artistInfo = response._embedded.events[i];
+    var tourDate = $("<h3>").text(artistInfo.dates.start.localDate);
+    var tourLocation = $("<h3>").text(artistInfo._embedded.venues[0].city.name + ", " + artistInfo._embedded.venues[0].state.stateCode)
+    var venue = $("<h3>").text(artistInfo._embedded.venues[0].name)
+    var tickets = $("<a>").attr("href", artistInfo._embedded.venues[0].url).text("Get tickets here")
+    var artistImage = $("<img>").attr("src", artistInfo.images[0].url);
+    //$("#lyrics-div").empty();
+    $("#lyrics-div").append(artistImage);
+    $("#lyrics-div").append(tourDate);
+    $("#lyrics-div").append(tourLocation);
+    $("#lyrics-div").append(venue);
+    $("#lyrics-div").append(tickets);
+}
