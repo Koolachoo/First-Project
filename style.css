@@ -1,0 +1,59 @@
+ .container, .albumDiv, .titleBox {
+    display: flex;
+  
+} 
+
+ .albumDiv {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  /* flex-direction: column, row ;  */
+  } 
+
+ .albumImg {
+   width: 200px;
+   height: 150px;
+ } 
+#search{
+  font-size: 22px;
+  padding-bottom: 5px;
+}
+ .concerto{
+  text-align: center;
+ }
+
+ .songButtn{
+   margin-bottom: 24px;
+   
+ }
+.tedd{
+  font-weight: bold;
+}
+ .titleBox {
+   padding-bottom: 35px;
+   text-align: center;
+   justify-content: center;
+   font-weight: bold;
+  
+ }
+
+
+ .artistBox{
+   text-align: center;
+  justify-content: center
+ }
+ /* p{
+   word-wrap: break-word ;
+ } */
+
+
+ @media (max-width: 768px) {
+  .albumImg {
+    width: 100px;
+    height: 50px;
+  } 
+  /* .albumDiv {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    /* flex-direction: column, row ;  
+    } */
+   }
