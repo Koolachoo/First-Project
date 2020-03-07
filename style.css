@@ -6,16 +6,14 @@
  .container, #lyrics-div, .titleBox, .modal-card-body, .columns {
     display: flex;
   
-} 
+}  */
 
-
-/* 
-#lyrics-div {
+ /* .albumDiv {
   flex-wrap: wrap;
   justify-content: space-evenly;
-  flex-direction: column, row ; 
+  /* flex-direction: column, row ;  
   }  */
-  
+
  .albumImg {
    width: 200px;
    height: 150px;
@@ -55,18 +53,21 @@
  
  .artistBox{
    text-align: center;
-  justify-content: center
+  justify-content: center;
+  margin-bottom: 24px
  }
 
-
-
-  @media (max-width: 768px) {
-  /* .albumImg {
+ /* @media (max-width: 768px) {
+    .albumImg {
     width: 100px;
     height: 50px;
-  }  */
-  
-.songButtn {
-  flex-grow: 2;
-  } 
-   } 
+  }
+  .albumDiv {
+    flex-wrap: wrap;
+   }} */
+
+   .test {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
