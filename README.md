@@ -12,3 +12,4 @@ After inserting the search criteria, the tool displays a list of results that pe
 The boxes are a clickable button.
 If the pertaining artist has an event in the near future, the button will lead to a list of upcoming events.
 When the event is clicked, it leads to a site to purchase tickets.
+

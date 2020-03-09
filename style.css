@@ -1,13 +1,8 @@
- /* .container, .albumDiv, .titleBox {
-    display: flex;
-  
-}  */
+ .modal-card-head{
+  justify-content: center;
+  font-weight: bold;
+ }
 
- /* .albumDiv {
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  /* flex-direction: column, row ;  
-  }  */
 
  .albumImg {
    width: 200px;
@@ -19,6 +14,12 @@
 }
  .concerto{
   text-align: center;
+ }
+
+ .btnText{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
  }
 
  .songButtn{
@@ -33,27 +34,18 @@
    text-align: center;
    justify-content: center;
    font-weight: bold;
-  
  }
 
-
+ .modal-card-body{
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+ }
+ 
  .artistBox{
    text-align: center;
   justify-content: center;
   margin-bottom: 24px
  }
- /* p{
-   word-wrap: break-word ;
- } */
-
- /* @media (max-width: 768px) {
-    .albumImg {
-    width: 100px;
-    height: 50px;
-  }
-  .albumDiv {
-    flex-wrap: wrap;
-   }} */
 
    .test {
     white-space:nowrap;
