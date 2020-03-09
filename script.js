@@ -23,7 +23,7 @@ function songSearch(searchQuery) {
                         var artistImage = $("<img>").attr("src", artistInfo.images[0].url);
                         $(".modal-card-body").append($("<div>").append(artistImage, tourDate, tourLocation, venue)
                             .addClass("box column is-6 artistBox")
-                            .on("click", function () {window.open(artistInfo._embedded.venues[0].url)}));
+                            .on("click", function () {window.open(artistInfo.url)}));
                     }
                 }
 
